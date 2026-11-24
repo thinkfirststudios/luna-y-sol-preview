@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'Escape' && nav.classList.contains('open')) { close(); toggle.focus(); }
     });
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 860 && nav.classList.contains('open')) close();
+      if (window.innerWidth > 1100 && nav.classList.contains('open')) close();
     });
   }
 

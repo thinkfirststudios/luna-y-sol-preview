@@ -219,19 +219,48 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: relative;
   z-index: 1;
 }
+/* One person, standing in front of the wordmark (cutout sits above it in z-order).
+   The hero has no bottom padding so the cutout's cropped edge lands on the section edge. */
+.hero { padding-bottom: 0; border-bottom: 1px solid var(--line); }
 .hero-stage {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr 0.9fr;
-  gap: clamp(24px, 3.5vw, 56px);
-  align-items: start;
-  margin-top: clamp(-3.5rem, -3.4vw, -1rem);
+  grid-template-columns: 1fr minmax(0, 1.7fr) 1fr;
+  gap: clamp(24px, 3vw, 48px);
+  align-items: end;
+  margin-top: calc(clamp(3.4rem, 17.5vw, 15.5rem) * -0.4); /* curls overlap the letters' base; deeper hides the "a" and "y" */
+  position: relative;
+}
+.hero-person {
+  margin: 0;
   position: relative;
   z-index: 2;
+  align-self: end;
 }
-.hero-small { margin-top: clamp(4rem, 12vw, 11rem); }
-.hero-small img { aspect-ratio: 1 / 1; object-fit: cover; width: 100%; }
-.hero-tall img { aspect-ratio: 4 / 5.2; object-fit: cover; object-position: center 30%; width: 100%; }
-.hero-copy { padding-top: clamp(5rem, 15vw, 14rem); max-width: 22rem; }
+.hero-person img { width: 100%; height: auto; }
+.hero-copy, .hero-aside {
+  position: relative;
+  z-index: 3;
+  padding-bottom: clamp(48px, 6vw, 88px);
+}
+.hero-copy { max-width: 22rem; }
+.hero-aside { justify-self: end; max-width: 17rem; }
+.hero-aside-script {
+  font-family: var(--script);
+  font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+  line-height: 1;
+  color: var(--brass-text); /* --brass is 2.9:1 on blush; the darker tone clears AA */
+  margin: 0 0 1rem;
+}
+.hero-services { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.hero-services li { border-bottom: 1px solid var(--line); }
+.hero-services a {
+  display: block;
+  padding: 0.7rem 0;
+  color: var(--espresso);
+  text-decoration: none;
+  font-size: 0.9875rem;
+}
+.hero-services a:hover { color: var(--brass-text); }
 .hero-lead {
   font-family: var(--serif);
   font-size: clamp(1.4rem, 2vw, 1.75rem);
@@ -250,10 +279,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* One orchestrated load moment: the wordmark writes in, the collage settles. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-mark { animation: write-in 1.6s cubic-bezier(.6, 0, .25, 1) both; }
-  .hero-tall, .hero-small, .hero-copy { animation: settle 1s cubic-bezier(.2, .7, .2, 1) both; }
-  .hero-tall { animation-delay: .7s; }
-  .hero-small { animation-delay: .95s; }
-  .hero-copy { animation-delay: 1.15s; }
+  .hero-person, .hero-copy, .hero-aside { animation: settle 1s cubic-bezier(.2, .7, .2, 1) both; }
+  .hero-person { animation-delay: .7s; }
+  .hero-copy, .hero-aside { animation-delay: 1.05s; }
 }
 @keyframes write-in {
   from { clip-path: inset(-20% 100% -20% 0); }
@@ -265,20 +293,18 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 @media (max-width: 900px) {
+  /* Phone/tablet: person first (overlapping the wordmark), then copy, then the service list. */
   .hero-stage {
     grid-template-columns: 1fr;
-    grid-template-areas: "tall" "small" "copy";
+    grid-template-areas: "person" "copy" "aside";
     row-gap: 0;
-    margin-top: -0.75rem;
+    margin-top: calc(clamp(3.4rem, 17.5vw, 15.5rem) * -0.32);
   }
-  .hero-tall { grid-area: tall; width: 84%; justify-self: end; }
-  .hero-small {
-    grid-area: small; width: 46%; justify-self: start;
-    margin-top: -22%;
-    position: relative; z-index: 1;
-    outline: 8px solid var(--blush);
-  }
-  .hero-copy { grid-area: copy; padding-top: 2.25rem; max-width: 34rem; }
+  .hero-person { grid-area: person; width: min(88%, 30rem); justify-self: center; }
+  .hero-copy { grid-area: copy; max-width: 34rem; padding: 2.25rem 0 0; }
+  .hero-aside { grid-area: aside; justify-self: stretch; max-width: 34rem; padding: 2.25rem 0 clamp(48px, 10vw, 72px); }
+  /* On small screens the photo's crop line sits mid-page, so fade it out instead of cutting hard */
+  .hero-person img { -webkit-mask-image: linear-gradient(#000 82%, transparent); mask-image: linear-gradient(#000 82%, transparent); }
 }
 
 /* ---------- Home: story color block ---------- */
