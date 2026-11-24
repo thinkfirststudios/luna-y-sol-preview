@@ -68,7 +68,7 @@ button { font: inherit; }
   outline: 2px solid var(--brass-deep);
   outline-offset: 3px;
 }
-.on-ink :focus-visible { outline-color: var(--brass-light); }
+.on-ink :focus-visible, .site-footer :focus-visible { outline-color: var(--brass-light); }
 
 .skip-link {
   position: absolute; left: 1rem; top: -100px; z-index: 200;
@@ -334,6 +334,8 @@ button { font: inherit; }
    ends in a hard line. --fade stays inside the section's own padding. */
 .section { --fade: calc(var(--section) * .8); }
 .on-ink { background: var(--ink); color: var(--plaster); }
+/* Dark bands meet the light page with a thin brushed-brass line instead of a fade */
+.gold-edges { border-block: 2px solid transparent; border-image: var(--brass-grad) 1; }
 
 .on-ink .lead { color: #CFC6B9; }
 .on-stone {
@@ -668,8 +670,8 @@ button { font: inherit; }
 .duo-card .arch { width: min(100%, 21rem); aspect-ratio: 3 / 4; margin: 0 auto 2.2rem; }
 .duo-card .arch img { object-position: 50% 20%; }
 .duo-card h3 { font-size: clamp(2.8rem, 5vw, 4rem); margin-bottom: .4rem; }
-.role { font-size: .95rem; letter-spacing: .08em; color: var(--brass-deep); margin-bottom: 1.1rem; }
-.duo-card p.bio { color: var(--muted); max-width: 28em; margin-inline: auto; }
+.role { font-size: .95rem; letter-spacing: .08em; color: var(--brass-light); margin-bottom: 1.1rem; }
+.duo-card p.bio { color: #D9D1C5; max-width: 28em; margin-inline: auto; }
 .duo-card .btn { margin-top: 1.6rem; }
 @media (max-width: 760px) {
   .duo { grid-template-columns: 1fr; }
@@ -1002,9 +1004,11 @@ button { font: inherit; }
 /* ─── Footer ────────────────────────────────────── */
 .site-footer {
   --fade: clamp(4rem, 8vw, 7rem);
-  background: linear-gradient(to bottom, var(--plaster) 0, var(--plaster-2) var(--fade));
-  color: var(--text);
-  padding: calc(var(--fade) + clamp(2rem, 4vw, 3rem)) 0 2rem;
+  background: var(--ink);
+  border-top: 2px solid transparent;
+  border-image: var(--brass-grad) 1;
+  color: #D9D1C5;
+  padding: clamp(4rem, 8vw, 6rem) 0 2rem;
   font-size: .95rem;
 }
 .footer-mark {
@@ -1026,23 +1030,23 @@ button { font: inherit; }
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding-top: 2.5rem;
-  border-top: 1px solid rgba(176,141,87,.45);
+  border-top: 1px solid rgba(216,188,134,.3);
 }
 .footer-col h2 {
   font-size: 1.35rem;
   letter-spacing: .08em;
-  color: var(--brass-deep);
+  color: var(--brass-light);
   margin-bottom: .9rem;
 }
 .footer-col ul { list-style: none; margin: 0; padding: 0; }
 .footer-col li { margin-bottom: .35rem; }
 .footer-col a { text-decoration: none; }
-.footer-col a:hover { color: var(--brass-deep); text-decoration: underline; text-underline-offset: .25em; }
+.footer-col a:hover { color: #fff; text-decoration: underline; text-underline-offset: .25em; }
 .footer-bottom {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 2rem;
   margin-top: 3rem; padding-top: 1.5rem;
-  border-top: 1px solid rgba(31,27,23,.12);
-  font-size: .82rem; color: var(--muted);
+  border-top: 1px solid rgba(238,234,227,.12);
+  font-size: .82rem; color: #A89F92;
 }
 .footer-bottom p { margin: 0; }
 @media (max-width: 860px) {
