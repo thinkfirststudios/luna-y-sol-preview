@@ -38,6 +38,11 @@ body {
   font: 400 1.0625rem/1.65 var(--sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* Bodoni Moda's auto optical sizing picks its hairline display cut at large sizes,
+     which reads as "bold then really skinny". Pin a sturdier cut everywhere.
+     Fonts without an opsz axis (Hanken Grotesk, Parisienne) ignore this. */
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 14;
 }
 img { display: block; max-width: 100%; height: auto; }
 figure { margin: 0; }
