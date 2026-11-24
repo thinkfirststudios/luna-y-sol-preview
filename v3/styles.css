@@ -330,9 +330,21 @@ button { font: inherit; }
 /* ─── Sections ──────────────────────────────────── */
 .section { padding-block: var(--section); }
 .section-tight { padding-block: calc(var(--section) * .55) calc(var(--section) * .35); }
+/* Colored bands fade in from and back out to the page plaster, so no section
+   ends in a hard line. --fade stays inside the section's own padding. */
+.section { --fade: calc(var(--section) * .8); }
 .on-ink { background: var(--ink); color: var(--plaster); }
+.section.on-ink {
+  background: linear-gradient(to bottom,
+    var(--plaster) 0, var(--ink) var(--fade),
+    var(--ink) calc(100% - var(--fade)), var(--plaster) 100%);
+}
 .on-ink .lead { color: #CFC6B9; }
-.on-stone { background: var(--plaster-2); }
+.on-stone {
+  background: linear-gradient(to bottom,
+    var(--plaster) 0, var(--plaster-2) var(--fade, 6rem),
+    var(--plaster-2) calc(100% - var(--fade, 6rem)), var(--plaster) 100%);
+}
 
 .center { text-align: center; }
 .center .lead { margin-inline: auto; }
@@ -993,9 +1005,10 @@ button { font: inherit; }
 
 /* ─── Footer ────────────────────────────────────── */
 .site-footer {
-  background: var(--ink);
+  --fade: clamp(4rem, 8vw, 7rem);
+  background: linear-gradient(to bottom, var(--plaster) 0, var(--ink) var(--fade));
   color: #D9D1C5;
-  padding: clamp(4rem, 8vw, 6rem) 0 2rem;
+  padding: calc(var(--fade) + clamp(2rem, 4vw, 3rem)) 0 2rem;
   font-size: .95rem;
 }
 .footer-mark {
