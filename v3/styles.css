@@ -219,10 +219,10 @@ button { font: inherit; }
 }
 .logo-sub {
   margin-top: .45rem;
-  font-size: .56rem;
+  font-size: .6875rem; /* 11px floor for visible text */
   font-weight: 500;
-  letter-spacing: .32em;
-  padding-left: .32em;
+  letter-spacing: .26em;
+  padding-left: .26em;
   text-transform: uppercase;
   opacity: .9;
 }
@@ -249,7 +249,7 @@ button { font: inherit; }
 .btn-nav {
   min-height: 2.6rem;
   padding: .6rem 1.5rem;
-  font-size: .68rem;
+  font-size: .75rem;
   letter-spacing: .22em;
   background: #fff;
   color: var(--ink);
@@ -306,8 +306,8 @@ button { font: inherit; }
 @media (max-width: 420px) {
   .header-inner { column-gap: .75rem; }
   .logo-name { font-size: 1.3rem; letter-spacing: .1em; padding-left: .1em; }
-  .logo-sub { font-size: .5rem; letter-spacing: .26em; }
-  .btn-nav { min-height: 2.4rem; padding-inline: .8rem; font-size: .62rem; letter-spacing: .12em; }
+  .logo-sub { font-size: .6875rem; letter-spacing: .16em; padding-left: .16em; }
+  .btn-nav { min-height: 2.4rem; padding-inline: .8rem; font-size: .6875rem; letter-spacing: .1em; }
 }
 
 /* ─── Sections ──────────────────────────────────── */
