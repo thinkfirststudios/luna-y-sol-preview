@@ -426,7 +426,14 @@ button { font: inherit; }
   width: var(--w);
   margin: calc(var(--mark) * -0.2) auto 0; /* curls cross the letters' base; the Y stays readable */
 }
-.hero-model img { width: 100%; height: auto; }
+/* Center client sets the size; the two side clients stand a step back, tucked
+   behind her shoulders and pinned to the same baseline. */
+.hero-model { display: flex; justify-content: center; align-items: flex-end; }
+.hero-model img { height: auto; max-width: none; flex: none; }
+.trio-center { width: var(--w); position: relative; z-index: 2; }
+.hero-model .trio-side { height: calc(var(--w) * .7986 * .8); width: auto; position: relative; z-index: 1; }
+.trio-left   { margin-right: calc(var(--w) * -0.13); }
+.trio-right  { margin-left:  calc(var(--w) * -0.2); }
 .hero-sub {
   position: relative; z-index: 3;
   margin: calc(var(--w) * -0.1) auto 1.75rem;
@@ -445,9 +452,9 @@ button { font: inherit; }
 }
 .hero-proof img { height: 40px; width: auto; }
 @media (max-width: 600px) {
-  .hero { --w: 100%; }
+  .hero { --w: 56vw; }
   .hero-model { margin-top: calc(var(--mark) * -0.15); }
-  .hero-sub { margin-top: -12vw; }
+  .hero-sub { margin-top: -2vw; }
 }
 
 .arch {
