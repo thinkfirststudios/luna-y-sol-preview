@@ -220,23 +220,40 @@ ul { margin: 0; padding: 0; list-style: none; }
   z-index: 1;
 }
 /* One person, standing in front of the wordmark (cutout sits above it in z-order).
-   The hero has no bottom padding so the cutout's cropped edge lands on the section edge. */
-.hero { padding-bottom: 0; border-bottom: 1px solid var(--line); }
+   The side columns set the stage height; the cutout is pinned to the bottom rule and
+   reaches a fixed --overlap up into the wordmark, so the overlap never depends on how
+   tall the copy wraps, and the side text always starts below the letters. */
+.hero {
+  --mark: clamp(3.4rem, 17.5vw, 15.5rem);
+  --overlap: calc(var(--mark) * 0.4);
+  --stage-gap: clamp(24px, 3vw, 48px);
+  padding-bottom: 0;
+  border-bottom: 1px solid var(--line);
+}
 .hero-stage {
   display: grid;
-  grid-template-columns: 1fr minmax(0, 1.7fr) 1fr;
-  gap: clamp(24px, 3vw, 48px);
+  grid-template-columns: 1fr minmax(0, 2fr) 1fr;
+  gap: var(--stage-gap);
   align-items: end;
-  margin-top: calc(clamp(3.4rem, 17.5vw, 15.5rem) * -0.4); /* curls overlap the letters' base; deeper hides the "a" and "y" */
+  margin-top: 1.25rem;
   position: relative;
 }
 .hero-person {
   margin: 0;
   position: relative;
   z-index: 2;
-  align-self: end;
+  align-self: stretch;
 }
-.hero-person img { width: 100%; height: auto; }
+.hero-person img {
+  position: absolute;
+  left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  height: calc(100% + 1.25rem + var(--overlap));
+  width: calc(100% + 2 * var(--stage-gap));
+  max-width: none;
+  object-fit: contain;
+  object-position: 50% 100%;
+}
 .hero-copy, .hero-aside {
   position: relative;
   z-index: 3;
@@ -300,7 +317,8 @@ ul { margin: 0; padding: 0; list-style: none; }
     row-gap: 0;
     margin-top: calc(clamp(3.4rem, 17.5vw, 15.5rem) * -0.32);
   }
-  .hero-person { grid-area: person; width: min(88%, 30rem); justify-self: center; }
+  .hero-person { grid-area: person; width: min(88%, 30rem); justify-self: center; align-self: end; }
+  .hero-person img { position: static; transform: none; width: 100%; height: auto; }
   .hero-copy { grid-area: copy; max-width: 34rem; padding: 2.25rem 0 0; }
   .hero-aside { grid-area: aside; justify-self: stretch; max-width: 34rem; padding: 2.25rem 0 clamp(48px, 10vw, 72px); }
   /* On small screens the photo's crop line sits mid-page, so fade it out instead of cutting hard */
