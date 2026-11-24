@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Luna Y Sol, Pasadena, CA</title>
+  <meta name="description" content="Stories, tips, and updates from the Luna Y Sol team, Pasadena's curl specialists.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500&family=Parisienne&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <p class="topbar">Curly &amp; wavy hair specialists in Old Pasadena. Open Tuesday to Saturday, 11 to 6.</p>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="header-phone" href="tel:+13236577551">(323) 657-7551</a>
+      <a href="index.html" class="logo" aria-label="Luna Y Sol, home">Luna y Sol</a>
+      <div class="header-actions">
+        <a href="#book" class="btn btn-solid btn-sm book-btn">Book</a>
+        <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="stylists.html">Stylists</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="visit.html">Visit</a></li>
+          <li><a href="blog.html" aria-current="page">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <div id="view-grid">
+      <section class="page-hero" aria-labelledby="page-title">
+        <div class="container">
+          <h1 class="page-mark brass" id="page-title">The Blog</h1>
+          <p class="lead">Stories, tips, and updates from the Luna y Sol team.</p>
+        </div>
+      </section>
+      <section class="section" style="padding-top: clamp(1rem,3vw,2rem)" aria-label="Blog posts">
+        <div class="container">
+          <div id="posts-container"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="view-post" style="display:none;">
+      <section class="section" aria-label="Post">
+        <div class="container">
+          <div class="blog-post-view">
+            <button class="blog-back-btn" id="back-btn">All posts</button>
+          </div>
+          <article class="blog-post-view" id="post-content"></article>
+        </div>
+      </section>
+    </div>
+
+    <section class="book-band section on-stone" id="book" aria-labelledby="book-title">
+      <div class="container">
+        <h2 id="book-title">Ready for your best hair?</h2>
+        <p class="lead">Book a consultation or your first appointment. We'd love to meet you.</p>
+        <a href="#book" class="btn btn-solid btn-wide book-btn">Book an appointment</a>
+        <p class="fine"><a href="tel:+13236577551">(323) 657-7551</a><br>300 E Colorado Blvd, Ste 202, Unit 214, Pasadena, CA 91129</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a href="index.html" class="footer-mark brass" aria-label="Luna Y Sol, home">Luna y Sol</a>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h2>Visit</h2>
+          <address>
+            300 E Colorado Blvd<br>
+            Ste 202, Unit 214<br>
+            Pasadena, CA 91129
+          </address>
+          <p><a href="tel:+13236577551">(323) 657-7551</a></p>
+        </div>
+        <div class="footer-col">
+          <h2>Hours</h2>
+          <p>Tuesday to Saturday<br>11:00 AM to 6:00 PM</p>
+          <p>Sunday and Monday<br>by appointment</p>
+        </div>
+        <div class="footer-col">
+          <h2>Explore</h2>
+          <ul>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="stylists.html">Stylists</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Follow</h2>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Yelp</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Luna Y Sol. All rights reserved.</p>
+        <p>300 E Colorado Blvd, Ste 202, Pasadena, CA 91129</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // ── Supabase config ───────────────────────────────────
+    const SUPABASE_URL      = 'https://rlbxcaduxrakewozlblz.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsYnhjYWR1eHJha2V3b3psYmx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MzI4NDEsImV4cCI6MjA5NjAwODg0MX0.7Kd9KsCM7AfCfxuPrq4fdwUtCtnD_2ICQt8PSc26tgM';
+
+    // ── DOM refs ──────────────────────────────────────────
+    const viewGrid       = document.getElementById('view-grid');
+    const viewPost       = document.getElementById('view-post');
+    const postsContainer = document.getElementById('posts-container');
+    const postContent    = document.getElementById('post-content');
+    const backBtn        = document.getElementById('back-btn');
+
+    // ── Helpers ───────────────────────────────────────────
+    function escHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function fmtDate(iso) {
+      return new Date(iso).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
+    function formatBody(text) {
+      return String(text ?? '').split(/\n{2,}/).filter(Boolean)
+        .map(p => `<p>${escHtml(p).replace(/\n/g, '<br>')}</p>`).join('');
+    }
+
+    // ── Fetch ─────────────────────────────────────────────
+    async function fetchPosts() {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/posts?published=eq.true&order=created_at.desc`,
+        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    // ── Render states ─────────────────────────────────────
+    function showLoading() {
+      postsContainer.innerHTML = `
+        <div class="blog-state">
+          <div class="blog-spinner"></div>
+          <p class="blog-state-sub">Loading posts…</p>
+        </div>`;
+    }
+    function showEmpty() {
+      postsContainer.innerHTML = `
+        <div class="blog-state">
+          <p class="blog-state-title">Nothing here yet</p>
+          <p class="blog-state-sub">Check back soon for updates from the salon.</p>
+        </div>`;
+    }
+    function showError() {
+      postsContainer.innerHTML = `
+        <div class="blog-state">
+          <p class="blog-state-title">Could not load posts</p>
+          <p class="blog-state-sub">Please try refreshing the page.</p>
+        </div>`;
+    }
+
+    // ── Render grid ───────────────────────────────────────
+    function renderGrid(posts) {
+      if (!posts.length) { showEmpty(); return; }
+
+      const grid = document.createElement('div');
+      grid.className = 'blog-grid';
+
+      posts.forEach((post, i) => {
+        const card = document.createElement('div');
+        card.className = 'blog-card';
+        card.style.animationDelay = `${i * 0.07}s`;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Read: ${post.title}`);
+        card.innerHTML = `
+          ${post.cover_image_url ? `<img src="${escHtml(post.cover_image_url)}" alt="${escHtml(post.title)}" class="blog-card-img" loading="lazy">` : ''}
+          <p class="blog-card-date">${fmtDate(post.created_at)}</p>
+          <h2 class="blog-card-title">${escHtml(post.title)}</h2>
+          <p class="blog-card-excerpt">${escHtml(post.content)}</p>
+          <span class="blog-card-cta">Read the post</span>
+        `;
+        card.addEventListener('click', () => openPost(post));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPost(post); }
+        });
+        grid.appendChild(card);
+      });
+
+      postsContainer.innerHTML = '';
+      postsContainer.appendChild(grid);
+      requestAnimationFrame(() => {
+        grid.querySelectorAll('.blog-card').forEach(c => c.classList.add('in'));
+      });
+    }
+
+    // ── Open post ─────────────────────────────────────────
+    function openPost(post) {
+      postContent.innerHTML = `
+        ${post.cover_image_url ? `<img src="${escHtml(post.cover_image_url)}" alt="${escHtml(post.title)}" class="blog-post-cover">` : ''}
+        <p class="blog-post-date">${fmtDate(post.created_at)}</p>
+        <h1 class="blog-post-title">${escHtml(post.title)}</h1>
+        <div class="blog-post-body">${formatBody(post.content)}</div>
+      `;
+      viewGrid.style.display = 'none';
+      viewPost.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Back button ───────────────────────────────────────
+    backBtn.addEventListener('click', () => {
+      viewPost.style.display = 'none';
+      viewGrid.style.display = 'block';
+    });
+
+    // ── Init ─────────────────────────────────────────────
+    (async function init() {
+      showLoading();
+      try {
+        const posts = await fetchPosts();
+        renderGrid(posts);
+      } catch (err) {
+        console.error('Failed to load posts:', err);
+        showError();
+      }
+    })();
+  </script>
+</body>
+</html>
