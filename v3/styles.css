@@ -378,14 +378,17 @@ button { font: inherit; }
 .hero {
   /* Wordmark and portrait both scale with screen height as well as width, so the
      wordmark, her portrait, the tagline and the gold button all fit above the fold.
-     Budget: header 120px + ~220px for tagline, button and spacing. */
-  --mark: clamp(3.3rem, min(17.4vw, 30svh), 21rem);
-  --w: min(92vw, 46rem, max(22rem, calc((100svh - 340px - var(--mark) * 0.7) / 0.7)));
+     Budget: header 120px + ~300px for tagline, button, reviews line and spacing. */
+  --mark: clamp(3.3rem, min(17.4vw, 28svh), 21rem);
+  --w: min(92vw, 46rem, max(18rem, calc((100svh - 420px - var(--mark) * 0.7) / 0.7)));
   position: relative;
   overflow: hidden;
   padding: clamp(1.5rem, 3vw, 3rem) var(--gutter) clamp(2.5rem, 5vw, 4.5rem);
   text-align: center;
   background:
+    /* brushed-brass glow rising from the bottom corners, framing her */
+    radial-gradient(55% 75% at 0% 100%, rgba(184,148,90,.85), rgba(214,185,127,.38) 40%, transparent 72%),
+    radial-gradient(55% 75% at 100% 100%, rgba(184,148,90,.85), rgba(214,185,127,.38) 40%, transparent 72%),
     radial-gradient(60% 50% at 20% 20%, rgba(255,255,255,.55), transparent 70%),
     radial-gradient(50% 60% at 85% 40%, rgba(214,205,192,.45), transparent 70%),
     var(--plaster);
@@ -467,6 +470,9 @@ button { font: inherit; }
 }
 
 /* ─── Circle service row ────────────────────────── */
+.circles-head { text-align: center; margin: 0 auto clamp(2rem, 4vw, 3.2rem); max-width: 36rem; }
+.circles-head .h-section { margin-bottom: .8rem; }
+.circles-head p { color: var(--muted); margin: 0; }
 .circles {
   list-style: none; margin: 0 auto; padding: 0;
   display: grid;
@@ -566,6 +572,14 @@ button { font: inherit; }
 }
 
 /* ─── Hola, hermosa ─────────────────────────────── */
+/* The salon itself, faded behind the note */
+.note-section { position: relative; overflow: hidden; isolation: isolate; }
+.note-section::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: url("../images/salon-interior.webp") center 40% / cover no-repeat;
+  opacity: .16;
+  filter: saturate(.7);
+}
 .note { text-align: center; max-width: 40rem; margin-inline: auto; }
 .note-script {
   font-family: var(--f-script);
@@ -1062,3 +1076,5 @@ button { font: inherit; }
 @media (max-width: 480px) {
   .book-choice { flex-direction: column; align-items: flex-start; gap: .5rem; }
 }
+
+.nowrap { white-space: nowrap; }
