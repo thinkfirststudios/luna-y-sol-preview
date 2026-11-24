@@ -385,18 +385,33 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Home: services band ---------- */
 .svc-home { padding-bottom: var(--sec); }
+/* Her cutout sits right of the title so her eyes stay visible. The band's grey is
+   sampled from the photo's studio backdrop (darker top-left, lighter right), so the
+   extended area matches the original wall instead of being invented. */
 .svc-band {
   position: relative;
+  overflow: hidden;
   height: clamp(300px, 38vw, 540px);
-  background: #2b2522 url("../images/photo1.jpg") center 18% / cover no-repeat;
+  background: linear-gradient(105deg, #9c9c9c 0%, #b4b4b4 45%, #c6c6c6 100%);
   display: grid; place-items: center;
 }
+.svc-band-person {
+  position: absolute;
+  top: -2%;
+  height: 155%;
+  width: auto;
+  max-width: none;
+  left: 83%;
+  translate: -45% 0; /* her face sits at ~45% of the image width; 83% keeps her eyes clear of the title */
+  z-index: 0;
+}
 .svc-band::before {
-  content: ""; position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0; z-index: 1;
   background: rgba(40, 30, 25, 0.38);
 }
 .svc-band-title {
   position: relative;
+  z-index: 2;
   font-family: var(--serif);
   font-size: clamp(3.75rem, 12vw, 10.5rem);
   line-height: 1;
@@ -474,13 +489,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- Home: chat moment ---------- */
 .chat { background: var(--blush-2); text-align: center; }
 .chat-script {
+  font-weight: 400; letter-spacing: 0; text-transform: none;
   font-family: var(--script);
   font-size: clamp(3.4rem, 9vw, 8rem);
   line-height: 1.12;
   margin: 0 0 2rem;
 }
 .chat-script span { display: block; }
-.chat-sub { color: var(--muted); max-width: 30em; margin: 0 auto 1.75rem; }
+.chat-sub { color: var(--muted); max-width: 30em; margin: 0 auto 1rem; }
+.chat-sub:last-of-type { margin-bottom: 1.75rem; }
 
 /* ---------- Home: reviews ---------- */
 .reviews-title { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
@@ -849,4 +866,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 @media (max-width: 480px) {
   .book-choice { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+}
+
+/* Phones: title moves left and the portrait further right so the title doesn't cover her eyes */
+@media (max-width: 600px) {
+  .svc-band { justify-items: start; padding-inline: var(--gutter); }
+  .svc-band-person { left: 92%; }
 }

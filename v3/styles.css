@@ -376,9 +376,11 @@ button { font: inherit; }
    black and white. Her bottom fade is baked into the image, so she dissolves into
    the plaster and the tagline sits on the faded part. */
 .hero {
-  --mark: clamp(3.3rem, 17.4vw, 21rem);
-  /* portrait width: capped by screen height too, so tagline + button stay above the fold */
-  --w: min(92vw, 46rem, calc((100svh - 120px) * 0.75));
+  /* Wordmark and portrait both scale with screen height as well as width, so the
+     wordmark, her portrait, the tagline and the gold button all fit above the fold.
+     Budget: header 120px + ~220px for tagline, button and spacing. */
+  --mark: clamp(3.3rem, min(17.4vw, 30svh), 21rem);
+  --w: min(92vw, 46rem, max(22rem, calc((100svh - 340px - var(--mark) * 0.7) / 0.7)));
   position: relative;
   overflow: hidden;
   padding: clamp(1.5rem, 3vw, 3rem) var(--gutter) clamp(2.5rem, 5vw, 4.5rem);
