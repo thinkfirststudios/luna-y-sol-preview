@@ -375,16 +375,15 @@ button { font: inherit; }
   z-index: 1;
   padding-inline: .05em;
 }
-.hero-arches {
+/* One model in front of the brass wordmark (ModaMaven-style). The cutout's
+   bottom fade is baked into the image, so she dissolves into the plaster. */
+.hero-model {
   position: relative;
   z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: clamp(.8rem, 2.2vw, 2rem);
-  margin-top: calc(var(--mark) * -0.12); /* overlap only the foot of the Y so the name stays legible */
-  padding-inline: var(--gutter);
+  width: min(92vw, 44rem);
+  margin: calc(var(--mark) * -0.22) auto 0; /* hair crosses the letters' base; the Y's fork stays clear */
 }
+.hero-model img { width: 100%; height: auto; }
 .arch {
   position: relative;
   margin: 0;
@@ -405,12 +404,10 @@ button { font: inherit; }
   border-radius: 999px 999px 0 0;
   pointer-events: none;
 }
-.arch-side   { width: clamp(6.5rem, 21vw, 17.5rem); aspect-ratio: 3 / 4.4; }
-.arch-center { width: clamp(8.6rem, 27vw, 22.5rem); aspect-ratio: 3 / 4.5; }
-.arch-side img { object-position: 50% 30%; }
 
 .hero-sub {
-  margin: clamp(2rem, 4vw, 2.8rem) auto 1.6rem;
+  position: relative; z-index: 3;
+  margin: clamp(-4.5rem, -5vw, -1.5rem) auto 1.6rem; /* sits on the faded part of the photo */
   padding-inline: var(--gutter);
   font-family: var(--f-display);
   font-size: clamp(1.45rem, 2.8vw, 2.2rem);
@@ -427,19 +424,13 @@ button { font: inherit; }
 .hero-proof img { height: 34px; width: auto; }
 
 @media (max-width: 600px) {
-  .hero-arches { gap: 0; padding-inline: 4vw; margin-top: calc(var(--mark) * -0.2); }
-  .arch-side { width: 26vw; }
-  .arch-center { width: 40vw; margin-inline: -1.5vw; z-index: 1; }
-  .arch::after { inset: -5px -5px 0 -5px; }
+  .hero-model { width: 100%; margin-top: calc(var(--mark) * -0.18); }
 }
 
-/* One orchestrated moment: the sign catches the light, mirrors rise. */
+/* One orchestrated moment: the sign catches the light, she rises into place. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-mark.brass { animation: shine 2.6s cubic-bezier(.3,.6,.3,1) .2s both; }
-  .hero-arches .arch { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
-  .hero-arches .arch:nth-child(1) { animation-delay: .35s; }
-  .hero-arches .arch:nth-child(2) { animation-delay: .2s; }
-  .hero-arches .arch:nth-child(3) { animation-delay: .5s; }
+  .hero-model { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) .25s both; }
 }
 @keyframes shine {
   from { background-position: 100% 50%; opacity: .2; }
