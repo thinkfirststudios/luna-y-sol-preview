@@ -386,13 +386,21 @@ button { font: inherit; }
   padding: clamp(1.5rem, 3vw, 3rem) var(--gutter) clamp(2.5rem, 5vw, 4.5rem);
   text-align: center;
   background:
-    /* brushed-brass glow rising from the bottom corners, framing her */
-    radial-gradient(55% 75% at 0% 100%, rgba(184,148,90,.85), rgba(214,185,127,.38) 40%, transparent 72%),
-    radial-gradient(55% 75% at 100% 100%, rgba(184,148,90,.85), rgba(214,185,127,.38) 40%, transparent 72%),
     radial-gradient(60% 50% at 20% 20%, rgba(255,255,255,.55), transparent 70%),
     radial-gradient(50% 60% at 85% 40%, rgba(214,205,192,.45), transparent 70%),
     var(--plaster);
 }
+/* Brushed-brass glow in the bottom corners, framing her. It sits on its own layer and
+   is masked to fade out before the hero's bottom edge, so it melts into the next section. */
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(55% 70% at 0% 92%, rgba(184,148,90,.85), rgba(214,185,127,.38) 40%, transparent 72%),
+    radial-gradient(55% 70% at 100% 92%, rgba(184,148,90,.85), rgba(214,185,127,.38) 40%, transparent 72%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+}
+.hero-proof { position: relative; z-index: 3; }
 .hero-mark {
   position: relative;
   z-index: 1;
@@ -573,12 +581,18 @@ button { font: inherit; }
 
 /* ─── Hola, hermosa ─────────────────────────────── */
 /* The salon itself, faded behind the note */
-.note-section { position: relative; overflow: hidden; isolation: isolate; }
+.note-section {
+  position: relative; overflow: hidden; isolation: isolate;
+  /* stone in the middle, page plaster at both edges, so there's no hard seam */
+  background: linear-gradient(to bottom, var(--plaster), var(--plaster-2) 22%, var(--plaster-2) 78%, var(--plaster));
+}
 .note-section::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background: url("../images/salon-interior.webp") center 40% / cover no-repeat;
   opacity: .16;
   filter: saturate(.7);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+          mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
 }
 .note { text-align: center; max-width: 40rem; margin-inline: auto; }
 .note-script {
