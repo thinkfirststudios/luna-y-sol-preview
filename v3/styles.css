@@ -428,7 +428,25 @@ button { font: inherit; }
 }
 /* Center client sets the size; the two side clients stand a step back, tucked
    behind her shoulders and pinned to the same baseline. */
-.hero-model { display: flex; justify-content: center; align-items: flex-end; }
+/* Grid with equal outer columns keeps the center client exactly centered,
+   whatever the widths of the side photos. */
+.hero .hero-model { width: auto; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; }
+/* Side clients dissolve like the center one: their lower half and outer edge fade
+   into the page, so their light tops don't leave grey patches or hard shoulders. */
+.trio-left {
+  justify-self: end;
+  -webkit-mask-image: linear-gradient(to bottom, #000 42%, transparent 84%), linear-gradient(to right, transparent 0, #000 24%);
+          mask-image: linear-gradient(to bottom, #000 42%, transparent 84%), linear-gradient(to right, transparent 0, #000 24%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+}
+.trio-right {
+  justify-self: start;
+  -webkit-mask-image: linear-gradient(to bottom, #000 42%, transparent 84%), linear-gradient(to left, transparent 0, #000 24%);
+          mask-image: linear-gradient(to bottom, #000 42%, transparent 84%), linear-gradient(to left, transparent 0, #000 24%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+}
 .hero-model img { height: auto; max-width: none; flex: none; }
 .trio-center { width: var(--w); position: relative; z-index: 2; }
 .hero-model .trio-side { height: calc(var(--w) * .7986 * .8); width: auto; position: relative; z-index: 1; }
