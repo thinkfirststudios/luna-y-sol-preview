@@ -228,7 +228,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   --overlap: calc(var(--mark) * 0.4);
   --stage-gap: clamp(24px, 3vw, 48px);
   padding-bottom: 0;
-  border-bottom: 1px solid var(--line);
 }
 /* Desktop: the hero fills the screen edge to edge and top to bottom,
    so the next section starts below the fold. Text sections below keep the 1240px measure. */
@@ -243,7 +242,8 @@ ul { margin: 0; padding: 0; list-style: none; }
     flex: 1;
     display: flex; flex-direction: column;
   }
-  .hero-stage { flex: 1; }
+  /* columns hug the portrait instead of the screen edges on wide monitors */
+  .hero-stage { flex: 1; width: 100%; max-width: 1480px; margin-inline: auto; grid-template-columns: 1fr minmax(0, 1.6fr) 1fr; }
   /* Header spans the same width as the hero so the logo and Book button line up with its edges */
   .header-inner { max-width: none; padding-inline: clamp(24px, 4vw, 80px); }
   .hero-copy { max-width: clamp(22rem, 24vw, 30rem); }
@@ -266,7 +266,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   z-index: 2;
   align-self: stretch;
 }
+/* she dissolves into the blush at the bottom, so the hero blends into the next section */
 .hero-person img {
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 98%);
+          mask-image: linear-gradient(to bottom, #000 62%, transparent 98%);
   position: absolute;
   left: 50%; bottom: 0;
   transform: translateX(-50%);

@@ -372,13 +372,13 @@ button { font: inherit; }
 }
 
 /* ─── Home: hero ────────────────────────────────── */
-/* Centered brass wordmark with three clients in front of it (ModaMaven-style),
-   all in black and white. The center client is largest and in front; the side
-   clients sit a step back. Each cutout's bottom fade is baked into the image. */
+/* Centered brass wordmark with one client in front of it (ModaMaven-style), in
+   black and white. Her bottom fade is baked into the image, so she dissolves into
+   the plaster and the tagline sits on the faded part. */
 .hero {
-  --top-chrome: 120px; /* announcement strip + header */
   --mark: clamp(3.3rem, 17.4vw, 21rem);
-  --h: min(36vw, 52svh);              /* height of the center figure */
+  /* portrait width: capped by screen height too, so tagline + button stay above the fold */
+  --w: min(92vw, 46rem, calc((100svh - 120px) * 0.75));
   position: relative;
   overflow: hidden;
   padding: clamp(1.5rem, 3vw, 3rem) var(--gutter) clamp(2.5rem, 5vw, 4.5rem);
@@ -387,9 +387,6 @@ button { font: inherit; }
     radial-gradient(60% 50% at 20% 20%, rgba(255,255,255,.55), transparent 70%),
     radial-gradient(50% 60% at 85% 40%, rgba(214,205,192,.45), transparent 70%),
     var(--plaster);
-}
-@media (min-width: 901px) {
-  .hero { min-height: calc(100svh - var(--top-chrome)); }
 }
 .hero-mark {
   position: relative;
@@ -400,22 +397,16 @@ button { font: inherit; }
   white-space: nowrap;
   padding-inline: .05em;
 }
-.hero-trio {
+.hero-model {
   position: relative;
   z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin-top: calc(var(--mark) * -0.2); /* curls cross the letters' base; the Y stays readable */
+  width: var(--w);
+  margin: calc(var(--mark) * -0.2) auto 0; /* curls cross the letters' base; the Y stays readable */
 }
-.hero-trio img { width: auto; max-width: none; flex: none; }
-.trio-center { height: var(--h); position: relative; z-index: 2; }
-.trio-left   { height: calc(var(--h) * .86); margin-right: calc(var(--h) * -0.14); }
-.trio-right  { height: calc(var(--h) * .86); margin-left: calc(var(--h) * -0.2); }
-
+.hero-model img { width: 100%; height: auto; }
 .hero-sub {
   position: relative; z-index: 3;
-  margin: calc(var(--h) * -0.12) auto 1.75rem; /* sits on the faded bottom of the photos */
+  margin: calc(var(--w) * -0.1) auto 1.75rem;
   font-family: var(--f-display);
   font-size: clamp(1.75rem, 3vw, 3.3rem);
   line-height: 1.15;
@@ -430,11 +421,10 @@ button { font: inherit; }
   color: var(--muted);
 }
 .hero-proof img { height: 40px; width: auto; }
-
-@media (max-width: 900px) {
-  .hero { --h: 46vw; }
-  .trio-left  { margin-right: calc(var(--h) * -0.22); }
-  .trio-right { margin-left: calc(var(--h) * -0.3); }
+@media (max-width: 600px) {
+  .hero { --w: 100%; }
+  .hero-model { margin-top: calc(var(--mark) * -0.15); }
+  .hero-sub { margin-top: -12vw; }
 }
 
 .arch {
@@ -459,10 +449,10 @@ button { font: inherit; }
 }
 
 
-/* One orchestrated moment: the sign catches the light, the three rise into place. */
+/* One orchestrated moment: the sign catches the light, she rises into place. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-mark.brass { animation: shine 2.6s cubic-bezier(.3,.6,.3,1) .2s both; }
-  .hero-trio { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) .25s both; }
+  .hero-model { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) .25s both; }
 }
 @keyframes shine {
   from { background-position: 100% 50%; opacity: .2; }
