@@ -419,12 +419,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 .review { padding-top: 1.5rem; border-top: 1px solid var(--line); }
 .review blockquote {
   margin: 0 0 1.25rem;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.25rem;
-  line-height: 1.45;
+  font-family: var(--sans);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--espresso);
 }
-.review-feature blockquote { font-size: clamp(1.6rem, 2.6vw, 2.15rem); line-height: 1.3; }
+/* Only the large featured quote uses the serif, upright, at a size where Bodoni's hairlines hold up */
+.review-feature blockquote {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+  line-height: 1.3;
+}
 .review figcaption { font-size: 0.9375rem; font-weight: 500; color: var(--brass-text); }
 @media (max-width: 900px) {
   .reviews-grid { grid-template-columns: 1fr 1fr; }
@@ -573,10 +578,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin: 2rem 0;
   padding-left: 1.25rem;
   border-left: 1px solid var(--brass);
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.25rem;
-  line-height: 1.45;
+  font-family: var(--sans);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--espresso);
 }
 .profile blockquote footer { font-family: var(--sans); font-style: normal; font-size: 0.875rem; color: var(--brass-text); margin-top: 0.6rem; }
 @media (max-width: 800px) {

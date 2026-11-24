@@ -810,7 +810,7 @@ button { font: inherit; }
 .hours { width: 100%; border-collapse: collapse; font-size: 1rem; }
 .hours th, .hours td { text-align: left; padding: .55rem 0; border-bottom: 1px solid var(--stone); font-weight: 400; }
 .hours td { text-align: right; color: var(--muted); }
-.hours .appt { font-style: italic; }
+.hours .appt { color: var(--muted); }
 @media (max-width: 860px) {
   .visit-cols { grid-template-columns: 1fr; max-width: 34rem; margin-inline: auto; }
 }
