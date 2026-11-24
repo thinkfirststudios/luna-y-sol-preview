@@ -178,8 +178,8 @@ button { font: inherit; }
 
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  /* Warm hair-strand texture (photo20, rotated and toned taupe). White text stays above 4.9:1 on it. */
-  background: #6c5644 url("../images/nav-hair.webp") center / cover no-repeat;
+  /* Hair-strand texture (photo20, rotated and toned grey). White text stays above 4.9:1 on it. */
+  background: #5a5856 url("../images/nav-hair.webp") center / cover no-repeat;
   color: #fff;
   box-shadow: 0 1px 0 rgba(0,0,0,.06);
   transition: box-shadow .25s ease;
