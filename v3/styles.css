@@ -432,8 +432,8 @@ button { font: inherit; }
 .hero-model img { height: auto; max-width: none; flex: none; }
 .trio-center { width: var(--w); position: relative; z-index: 2; }
 .hero-model .trio-side { height: calc(var(--w) * .7986 * .8); width: auto; position: relative; z-index: 1; }
-.trio-left   { margin-right: calc(var(--w) * -0.13); }
-.trio-right  { margin-left:  calc(var(--w) * -0.2); }
+.trio-left   { margin-right: calc(var(--w) * -0.2); }
+.trio-right  { margin-left:  calc(var(--w) * -0.13); }
 .hero-sub {
   position: relative; z-index: 3;
   margin: calc(var(--w) * -0.1) auto 1.75rem;
