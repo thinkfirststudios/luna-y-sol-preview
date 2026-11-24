@@ -91,7 +91,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-family: var(--script);
   font-size: clamp(2rem, 3.6vw, 2.75rem);
   line-height: 1;
-  color: var(--brass);
+  color: var(--brass-text); /* --brass is 2.9:1 on blush; only the logotypes keep it */
   margin: 0;
 }
 .script-lead.on-dark { color: var(--pampas); }
