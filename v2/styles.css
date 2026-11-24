@@ -210,7 +210,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .hero-mark {
   font-family: var(--script);
-  font-size: clamp(3.4rem, 17.5vw, 15.5rem);
+  font-size: var(--mark);
   line-height: 1.05;
   color: var(--brass);
   text-align: center;
@@ -224,11 +224,33 @@ ul { margin: 0; padding: 0; list-style: none; }
    reaches a fixed --overlap up into the wordmark, so the overlap never depends on how
    tall the copy wraps, and the side text always starts below the letters. */
 .hero {
-  --mark: clamp(3.4rem, 17.5vw, 15.5rem);
+  --mark: clamp(3.4rem, 17.5vw, 22rem);
   --overlap: calc(var(--mark) * 0.4);
   --stage-gap: clamp(24px, 3vw, 48px);
   padding-bottom: 0;
   border-bottom: 1px solid var(--line);
+}
+/* Desktop: the hero fills the screen edge to edge and top to bottom,
+   so the next section starts below the fold. Text sections below keep the 1240px measure. */
+@media (min-width: 901px) {
+  .hero {
+    min-height: calc(100svh - var(--header-h));
+    display: flex; flex-direction: column;
+  }
+  .hero > .wrap {
+    max-width: none;
+    padding-inline: clamp(24px, 4vw, 80px);
+    flex: 1;
+    display: flex; flex-direction: column;
+  }
+  .hero-stage { flex: 1; }
+  /* Header spans the same width as the hero so the logo and Book button line up with its edges */
+  .header-inner { max-width: none; padding-inline: clamp(24px, 4vw, 80px); }
+  .hero-copy { max-width: clamp(22rem, 24vw, 30rem); }
+  .hero-aside { max-width: clamp(17rem, 18vw, 22rem); }
+  .hero-lead { font-size: clamp(1.4rem, 2vw, 2.4rem); }
+  .hero .hero-copy p:not(.hero-lead):not(.hero-yelp) { font-size: clamp(1rem, 1.05vw, 1.2rem); }
+  .hero-services a { font-size: clamp(0.9875rem, 1.05vw, 1.2rem); }
 }
 .hero-stage {
   display: grid;
@@ -788,4 +810,40 @@ ul { margin: 0; padding: 0; list-style: none; }
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- Booking chooser (opened by general Book buttons) ---------- */
+.book-dialog {
+  border: 0; padding: 0;
+  width: min(92vw, 34rem);
+  background: var(--blush);
+  color: var(--espresso);
+  box-shadow: 0 30px 80px -30px rgba(58, 42, 34, 0.55);
+}
+.book-dialog::backdrop { background: rgba(46, 33, 27, 0.55); }
+.book-dialog-inner { position: relative; padding: clamp(1.75rem, 4vw, 2.75rem); }
+.book-dialog h2 { font-family: var(--serif); font-size: clamp(1.9rem, 4vw, 2.5rem); line-height: 1.1; margin: 0 0 0.6rem; }
+.book-dialog p { color: var(--muted); margin: 0 0 1.6rem; }
+.book-choices { display: grid; gap: 0.75rem; }
+.book-choice {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.4);
+  color: inherit; text-decoration: none;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.book-choice:hover { border-color: var(--espresso); background: rgba(255, 255, 255, 0.7); }
+.book-choice strong { display: block; font-family: var(--serif); font-size: 1.6rem; font-weight: 400; line-height: 1.1; }
+.book-role { display: block; font-size: 0.9375rem; color: var(--muted); margin-top: 0.2rem; }
+.book-go { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9375rem; font-weight: 500; color: var(--brass-text); white-space: nowrap; }
+.book-ext { width: 10px; height: 10px; }
+.book-dialog-close {
+  position: absolute; top: 0.6rem; right: 0.6rem;
+  width: 44px; height: 44px;
+  background: none; border: 0; cursor: pointer;
+  font-size: 1.75rem; line-height: 1; color: var(--espresso);
+}
+@media (max-width: 480px) {
+  .book-choice { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 }

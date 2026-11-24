@@ -1,18 +1,72 @@
 /* ====================================================
    Luna y Sol V2 — script.js
 
-   TO UPDATE BOOKING URL: change BOOKING_URL below.
-   Every "Book" button on the site reads from this one
-   constant, so swap it once and it updates everywhere.
+   BOOKING LINKS: each stylist's Fresha page lives in BOOKING
+   below. Update a link there and every button follows.
+   - "Book with Hector/Sarah" buttons (data-stylist) go straight
+     to that stylist's page in a new tab.
+   - Every other "Book" button opens a chooser for the two.
+   - Without JavaScript, general Book buttons fall back to the
+     stylists page, which has a direct button for each.
    ==================================================== */
 
-const BOOKING_URL = '#book';
+const BOOKING = {
+  hector: {
+    name: 'Hector',
+    role: 'Curl specialist',
+    url: 'https://www.fresha.com/a/hector-luna-y-sol-pasadena-300-east-colorado-blvd-unit-241-cbuogd77/all-offer?menu=true&pId=757938',
+  },
+  sarah: {
+    name: 'Sarah',
+    role: 'Cut & color specialist',
+    url: 'https://www.fresha.com/a/sarah-luna-y-sol-pasadena-300-east-colorado-boulevard-unit-241-kzy2sj7s',
+  },
+};
+
+function buildBookingDialog() {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'book-dialog';
+  dialog.setAttribute('aria-labelledby', 'book-dialog-title');
+  const ext = '<svg class="book-ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>';
+  const choices = Object.values(BOOKING).map(s => `
+      <a class="book-choice" href="${s.url}" target="_blank" rel="noopener">
+        <span><strong>${s.name}</strong><span class="book-role">${s.role}</span></span>
+        <span class="book-go">Book with ${s.name} ${ext}<span class="sr-only"> (opens Fresha in a new tab)</span></span>
+      </a>`).join('');
+  dialog.innerHTML = `
+    <div class="book-dialog-inner">
+      <button class="book-dialog-close" type="button" aria-label="Close">&times;</button>
+      <h2 id="book-dialog-title">Book an appointment</h2>
+      <p>Choose your stylist. Booking opens on Fresha in a new tab.</p>
+      <div class="book-choices">${choices}</div>
+    </div>`;
+  document.body.appendChild(dialog);
+  dialog.querySelector('.book-dialog-close').addEventListener('click', () => dialog.close());
+  dialog.querySelectorAll('.book-choice').forEach(a => a.addEventListener('click', () => dialog.close()));
+  // click on the dimmed backdrop closes it
+  dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+  return dialog;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Wire all booking buttons
-  document.querySelectorAll('.book-btn').forEach(btn => {
-    btn.setAttribute('href', BOOKING_URL);
+  // Booking buttons
+  document.querySelectorAll('.book-btn[data-stylist]').forEach(btn => {
+    const s = BOOKING[btn.dataset.stylist];
+    if (!s) return;
+    btn.setAttribute('href', s.url);
+    btn.setAttribute('target', '_blank');
+    btn.setAttribute('rel', 'noopener');
+  });
+  const bookDialog = typeof HTMLDialogElement === 'function' ? buildBookingDialog() : null;
+  document.querySelectorAll('.book-btn:not([data-stylist])').forEach(btn => {
+    btn.setAttribute('href', 'stylists.html');
+    btn.setAttribute('aria-haspopup', 'dialog');
+    btn.addEventListener('click', e => {
+      if (!bookDialog) return;          // old browser: follow the link to the stylists page
+      e.preventDefault();
+      bookDialog.showModal();
+    });
   });
 
   // Header hairline once the page scrolls

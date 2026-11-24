@@ -22,6 +22,10 @@
       #8a6838 0%, #c09a5e 10%, #d6b97f 18%, #b8945a 27%, #8f6d3c 38%, #a88449 46%,
       #8a6838 50%, #c09a5e 60%, #d6b97f 68%, #b8945a 77%, #8f6d3c 88%, #a88449 96%, #8a6838 100%);
 
+  /* Lighter half of the same brass, for surfaces that carry ink text (every stop >= 6:1 with --ink) */
+  --brass-grad-light: linear-gradient(100deg,
+      #b8945a 0%, #d6b97f 22%, #c09a5e 40%, #b8945a 50%, #d6b97f 72%, #c09a5e 90%, #b8945a 100%);
+
   --f-display: 'Italiana', 'Didot', serif;
   --f-body:    'Jost', 'Futura', system-ui, sans-serif;
   --f-script:  'Parisienne', cursive;
@@ -130,13 +134,26 @@ button { font: inherit; }
 .btn-light { color: var(--plaster); border-color: rgba(238,234,227,.55); }
 .btn-light:hover { background: var(--plaster); color: var(--ink); border-color: var(--plaster); }
 /* The ModaMaven "shop now" bar: wide, framed, floating */
+/* Hero booking bar in the same brushed brass as the wordmark.
+   Uses the light half of the brass so ink text stays at 6:1 or better; white would fail. */
 .btn-bar {
   min-width: min(100%, 22rem);
-  background: var(--plaster);
-  border-color: var(--stone);
+  color: var(--ink);
+  background: var(--brass-grad-light);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  border-color: transparent;
   box-shadow: 0 14px 30px -18px rgba(31,27,23,.45);
+  transition: background-position .6s ease, color .2s ease, box-shadow .2s ease;
 }
-.btn-bar:hover { background: var(--ink); border-color: var(--ink); }
+.btn-bar:hover {
+  color: var(--ink);
+  background: var(--brass-grad-light);
+  background-size: 200% 100%;
+  background-position: 100% 50%; /* the brass catches the light on hover */
+  border-color: transparent;
+  box-shadow: 0 18px 34px -16px rgba(31,27,23,.55);
+}
 
 .text-link {
   color: var(--brass-deep);
@@ -355,35 +372,71 @@ button { font: inherit; }
 }
 
 /* ─── Home: hero ────────────────────────────────── */
+/* Centered brass wordmark with three clients in front of it (ModaMaven-style),
+   all in black and white. The center client is largest and in front; the side
+   clients sit a step back. Each cutout's bottom fade is baked into the image. */
 .hero {
-  --mark: clamp(3.3rem, 17.4vw, 14.5rem);
+  --top-chrome: 120px; /* announcement strip + header */
+  --mark: clamp(3.3rem, 17.4vw, 21rem);
+  --h: min(36vw, 52svh);              /* height of the center figure */
   position: relative;
-  padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(2rem, 4vw, 3rem);
-  text-align: center;
   overflow: hidden;
+  padding: clamp(1.5rem, 3vw, 3rem) var(--gutter) clamp(2.5rem, 5vw, 4.5rem);
+  text-align: center;
   background:
     radial-gradient(60% 50% at 20% 20%, rgba(255,255,255,.55), transparent 70%),
     radial-gradient(50% 60% at 85% 40%, rgba(214,205,192,.45), transparent 70%),
     var(--plaster);
 }
+@media (min-width: 901px) {
+  .hero { min-height: calc(100svh - var(--top-chrome)); }
+}
 .hero-mark {
+  position: relative;
+  z-index: 1;
   font-size: var(--mark);
   line-height: .9;
   letter-spacing: .02em;
   white-space: nowrap;
-  position: relative;
-  z-index: 1;
   padding-inline: .05em;
 }
-/* One model in front of the brass wordmark (ModaMaven-style). The cutout's
-   bottom fade is baked into the image, so she dissolves into the plaster. */
-.hero-model {
+.hero-trio {
   position: relative;
   z-index: 2;
-  width: min(92vw, 44rem);
-  margin: calc(var(--mark) * -0.22) auto 0; /* hair crosses the letters' base; the Y's fork stays clear */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: calc(var(--mark) * -0.2); /* curls cross the letters' base; the Y stays readable */
 }
-.hero-model img { width: 100%; height: auto; }
+.hero-trio img { width: auto; max-width: none; flex: none; }
+.trio-center { height: var(--h); position: relative; z-index: 2; }
+.trio-left   { height: calc(var(--h) * .86); margin-right: calc(var(--h) * -0.14); }
+.trio-right  { height: calc(var(--h) * .86); margin-left: calc(var(--h) * -0.2); }
+
+.hero-sub {
+  position: relative; z-index: 3;
+  margin: calc(var(--h) * -0.12) auto 1.75rem; /* sits on the faded bottom of the photos */
+  font-family: var(--f-display);
+  font-size: clamp(1.75rem, 3vw, 3.3rem);
+  line-height: 1.15;
+  letter-spacing: .02em;
+  color: var(--ink);
+}
+.hero .btn-bar { min-width: min(100%, 28rem); min-height: 3.7rem; font-size: .85rem; position: relative; z-index: 3; }
+.hero-proof {
+  display: flex; align-items: center; justify-content: center; gap: .9rem;
+  margin-top: 1.6rem;
+  font-size: 1rem;
+  color: var(--muted);
+}
+.hero-proof img { height: 40px; width: auto; }
+
+@media (max-width: 900px) {
+  .hero { --h: 46vw; }
+  .trio-left  { margin-right: calc(var(--h) * -0.22); }
+  .trio-right { margin-left: calc(var(--h) * -0.3); }
+}
+
 .arch {
   position: relative;
   margin: 0;
@@ -405,32 +458,11 @@ button { font: inherit; }
   pointer-events: none;
 }
 
-.hero-sub {
-  position: relative; z-index: 3;
-  margin: clamp(-4.5rem, -5vw, -1.5rem) auto 1.6rem; /* sits on the faded part of the photo */
-  padding-inline: var(--gutter);
-  font-family: var(--f-display);
-  font-size: clamp(1.45rem, 2.8vw, 2.2rem);
-  line-height: 1.25;
-  letter-spacing: .02em;
-  color: var(--ink);
-}
-.hero-proof {
-  display: flex; align-items: center; justify-content: center; gap: .8rem;
-  margin-top: 1.8rem;
-  font-size: .85rem;
-  color: var(--muted);
-}
-.hero-proof img { height: 34px; width: auto; }
 
-@media (max-width: 600px) {
-  .hero-model { width: 100%; margin-top: calc(var(--mark) * -0.18); }
-}
-
-/* One orchestrated moment: the sign catches the light, she rises into place. */
+/* One orchestrated moment: the sign catches the light, the three rise into place. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-mark.brass { animation: shine 2.6s cubic-bezier(.3,.6,.3,1) .2s both; }
-  .hero-model { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) .25s both; }
+  .hero-trio { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) .25s both; }
 }
 @keyframes shine {
   from { background-position: 100% 50%; opacity: .2; }
@@ -828,14 +860,17 @@ button { font: inherit; }
   display: grid;
   grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
   gap: clamp(2rem, 6vw, 6rem);
-  align-items: end;
-  padding-block: clamp(3rem, 7vw, 5rem) 0;
+  align-items: center;
+  /* bottom padding keeps the arch inside this section instead of running into the next one */
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(3.5rem, 7vw, 6rem);
 }
+/* a complete arched mirror: frame closes along the bottom */
+.visit-hero .arch::after { inset: -9px; border-bottom: 1px solid var(--brass); }
 .visit-hero h1 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .92; margin-bottom: 1.8rem; }
 .visit-hero .lead { margin-bottom: 2rem; }
 .visit-hero .arch { width: min(100%, 25rem); aspect-ratio: 3 / 3.3; margin-inline: auto; }
 .visit-hero .arch img { object-position: 50% 15%; }
-.visit-hero-text { padding-bottom: clamp(1rem, 4vw, 3.5rem); }
+.visit-hero-text { padding-bottom: 0; }
 @media (max-width: 860px) {
   .visit-hero { grid-template-columns: 1fr; text-align: center; }
   .visit-hero .lead { margin-inline: auto; }
@@ -998,4 +1033,40 @@ button { font: inherit; }
 .section-tight + .section { padding-top: calc(var(--section) * .55); }
 @media (max-width: 860px) {
   .annot { display: none; }
+}
+
+/* ─── Booking chooser (opened by general Book buttons) ── */
+.book-dialog {
+  border: 0; padding: 0;
+  width: min(92vw, 34rem);
+  background: var(--plaster);
+  color: var(--ink);
+  box-shadow: 0 30px 80px -30px rgba(31, 27, 23, .6);
+}
+.book-dialog::backdrop { background: rgba(31, 27, 23, .6); }
+.book-dialog-inner { position: relative; padding: clamp(1.75rem, 4vw, 2.75rem); text-align: center; }
+.book-dialog h2 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); margin-bottom: .7rem; }
+.book-dialog p { color: var(--muted); margin: 0 0 1.6rem; }
+.book-choices { display: grid; gap: .75rem; text-align: left; }
+.book-choice {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--stone);
+  background: #fff;
+  color: inherit; text-decoration: none;
+  transition: border-color .2s;
+}
+.book-choice:hover { border-color: var(--brass); }
+.book-choice strong { display: block; font-family: var(--f-display); font-size: 1.6rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; line-height: 1.1; }
+.book-role { display: block; font-size: .9375rem; color: var(--muted); margin-top: .2rem; }
+.book-go { display: inline-flex; align-items: center; gap: .4rem; font-size: .75rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--brass-deep); white-space: nowrap; }
+.book-ext { width: 10px; height: 10px; }
+.book-dialog-close {
+  position: absolute; top: .6rem; right: .6rem;
+  width: 44px; height: 44px;
+  background: none; border: 0; cursor: pointer;
+  font-size: 1.75rem; line-height: 1; color: var(--ink);
+}
+@media (max-width: 480px) {
+  .book-choice { flex-direction: column; align-items: flex-start; gap: .5rem; }
 }

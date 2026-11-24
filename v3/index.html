@@ -29,7 +29,6 @@
           <li><a href="stylists.html">Stylists</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="visit.html">Visit</a></li>
-          <li><a href="blog.html">Blog</a></li>
         </ul>
       </nav>
       <a href="index.html" class="logo" aria-label="Luna Y Sol, home">
@@ -52,9 +51,11 @@
 
     <section class="hero" aria-labelledby="hero-title">
       <h1 class="hero-mark brass" id="hero-title">Luna y Sol</h1>
-      <figure class="hero-model">
-        <img src="../images/hero-model-v3.webp" alt="Black and white portrait of a client with full, voluminous natural curls" width="902" height="720" fetchpriority="high">
-      </figure>
+      <div class="hero-trio">
+        <img class="trio-left" src="../images/hero-trio-left.webp" alt="Client with long, defined spiral curls" width="729" height="1049">
+        <img class="trio-center" src="../images/hero-trio-center.webp" alt="Client with full, voluminous natural curls" width="1807" height="1443" fetchpriority="high">
+        <img class="trio-right" src="../images/hero-trio-right.webp" alt="Client with a sleek, glossy blunt bob" width="1130" height="1146">
+      </div>
       <p class="hero-sub">Curls are our obsession, and our specialty.</p>
       <a href="#book" class="btn btn-bar book-btn">Book an appointment</a>
       <div class="hero-proof">
@@ -171,14 +172,14 @@
             <h3>Hector</h3>
             <p class="role">Curl specialist</p>
             <p class="bio">Known for his signature dry-cutting approach. Client after client says he gave them back a curl pattern they never knew they had.</p>
-            <a href="#book" class="btn btn-light book-btn">Book with Hector</a>
+            <a href="#book" class="btn btn-light book-btn" data-stylist="hector">Book with Hector</a>
           </article>
           <article class="duo-card">
             <figure class="arch "><img src="../images/sarah_photo.png" alt="Sarah, in a black suit, posing on a staircase"></figure>
             <h3>Sarah</h3>
             <p class="role">Cut &amp; color specialist</p>
             <p class="bio">Careful consultations and an eye for lived-in color. The stylist clients trust to make them look effortlessly themselves, year after year.</p>
-            <a href="#book" class="btn btn-light book-btn">Book with Sarah</a>
+            <a href="#book" class="btn btn-light book-btn" data-stylist="sarah">Book with Sarah</a>
           </article>
         </div>
       </div>
@@ -253,7 +254,6 @@
             <li><a href="services.html">Services</a></li>
             <li><a href="stylists.html">Stylists</a></li>
             <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="blog.html">Blog</a></li>
           </ul>
         </div>
         <div class="footer-col">
