@@ -3,7 +3,7 @@
    V4's real clients, loosened up: shapes from the name (sun disc,
    mirror arch, round "moon" frames), curl coils, wavy edges, tilted prints.
    Gold text only where it reads: deep brass on light, bright brass on dark.
-   Display: Fraunces (soft) · Body: Jost · Logo: Italiana
+   Display: Young Serif · Body: Jost · Logo: Italiana
    ========================================================== */
 
 :root {
@@ -33,7 +33,7 @@
   --brass-grad-light: linear-gradient(100deg,
       #b8945a 0%, #d6b97f 22%, #c09a5e 40%, #b8945a 50%, #d6b97f 72%, #c09a5e 90%, #b8945a 100%);
 
-  --f-display: 'Fraunces', Georgia, serif;
+  --f-display: 'Young Serif', Georgia, serif;
   --f-logo:    'Italiana', 'Didot', serif;
   --f-body:    'Jost', 'Futura', system-ui, sans-serif;
 
@@ -60,9 +60,8 @@ img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 h1, h2, h3, h4 {
   font-family: var(--f-display);
-  font-weight: 450;
-  font-variation-settings: "SOFT" 100;
-  letter-spacing: -0.015em;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   line-height: 1.02;
   margin: 0;
 }
@@ -415,8 +414,8 @@ button { font: inherit; }
 }
 .hero-mark {
   font-size: clamp(4rem, min(9.5vw, 19svh), 10.5rem);
-  font-weight: 450;
-  line-height: .9;
+  font-weight: 400;
+  line-height: .92;
   letter-spacing: -0.03em;
   color: var(--ink);
   margin-bottom: clamp(1.2rem, 2.4vw, 2rem);
@@ -1143,7 +1142,7 @@ button { font: inherit; }
   transition: border-color .2s;
 }
 .book-choice:hover { border-color: var(--brass); }
-.book-choice strong { display: block; font-family: var(--f-display); font-size: 1.6rem; font-weight: 450; line-height: 1.1; }
+.book-choice strong { display: block; font-family: var(--f-display); font-size: 1.6rem; font-weight: 400; line-height: 1.1; }
 .book-role { display: block; font-size: .9375rem; color: var(--muted); margin-top: .2rem; }
 .book-go { display: inline-flex; align-items: center; gap: .4rem; font-size: .75rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--brass-deep); white-space: nowrap; }
 .book-ext { width: 10px; height: 10px; }
