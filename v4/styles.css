@@ -393,9 +393,12 @@ button { font: inherit; }
   color: #fff;
 }
 .hero-bg {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; max-width: none;
-  object-fit: cover; object-position: 50% 20%;
+  /* lifted: the photo is 20svh taller than the hero and shifted up by the same
+     amount, so both faces sit well above the wordmark */
+  position: absolute; inset: 0 0 auto 0;
+  width: 100%; height: calc(100% + 20svh); max-width: none;
+  transform: translateY(-20svh);
+  object-fit: cover; object-position: 50% 0;
 }
 .hero::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -437,7 +440,7 @@ button { font: inherit; }
   .hero { min-height: calc(100svh - 110px); }
   /* phones: photo fills the top ~3/4 and is centred on the curly-haired client,
      so her face sits above the wordmark; the text area below is the dark fade */
-  .hero-bg { height: 76%; object-position: 9% 30%; }
+  .hero-bg { height: 76%; transform: none; object-position: 9% 30%; }
   .hero::after { background: linear-gradient(to top, var(--ink) 0%, var(--ink) 26%, rgba(31,27,23,.55) 42%, transparent 58%); }
   .hero-row { flex-direction: column; align-items: stretch; text-align: center; }
   .hero-actions { flex-direction: column; align-items: stretch; }
